@@ -1,2 +1,2 @@
-finetuning codellama on converstational data
+finetuning codellama on conversational data
 
