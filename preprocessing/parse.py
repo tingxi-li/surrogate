@@ -18,6 +18,8 @@ def postprocess_response(response):
 
 def parse_jsonl(jsonl_file, dpo=False):
     output_base_dir = "/home/ubuntu/surrogate/data/"
+    if dpo:
+        output_base_dir = "/home/ubuntu/surrogate/dpo_data/"
     jsonl_file.split("/")[-1]
     output_file = os.path.join(output_base_dir, jsonl_file.split("/")[-1])
     try:
@@ -67,7 +69,7 @@ def parse_jsonl(jsonl_file, dpo=False):
                                         f"Response:\n{assistant_content}\n\n"
                                         f"Explanation:\n"
                                     )
-                                    explanation = client.generate_claude(query_oracle_3, temperature=1.5, MODEL_ID=HAIKU_35_ARN)
+                                    explanation = client.generate_claude(query_oracle_3, temperature=1.0, MODEL_ID=HAIKU_35_ARN)
                                     assistant_turn["dpo"] = assistant_content + explanation # write
 
                                 # query_oracle_2 = (
@@ -122,7 +124,7 @@ def parse_jsonl(jsonl_file, dpo=False):
                                         f"Response:\n{assistant_content}\n\n"
                                         f"Explanation:\n"
                                     )
-                                    explanation = client.generate_claude(query_oracle_3, temperature=1.5, MODEL_ID=HAIKU_35_ARN)
+                                    explanation = client.generate_claude(query_oracle_3, temperature=1.0, MODEL_ID=HAIKU_35_ARN)
                                     assistant_turn["dpo"] = assistant_content + explanation # write
                                     
                                 processed_data.append(entry)
@@ -144,8 +146,8 @@ def parse_jsonl(jsonl_file, dpo=False):
 if __name__ == "__main__":
     from HARDCODED_PATHS import MERGED_OUTPUT, DEV_SET
     for p in MERGED_OUTPUT:
-        parse_jsonl(p)
+        parse_jsonl(p, dpo=True)
     
     for p in DEV_SET:
-        parse_jsonl(p)
+        parse_jsonl(p, dpo=True)
     

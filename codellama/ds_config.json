@@ -33,5 +33,8 @@
         "verbose": false,
         "prof_all": false,
         "debug": false
-    }
+    },
+    "distributed_backend": "nccl",
+    "zero_allow_untested_optimizer": true,
+    "zero_force_ds_cpu_optimizer": false
 }
